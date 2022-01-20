@@ -13,6 +13,9 @@ export const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
       where: {
         id: parseInt(query.id),
       },
+      include: {
+        seos: true,
+      },
     });
     return res.status(200).json({ page });
   }
