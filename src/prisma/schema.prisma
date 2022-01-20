@@ -10,10 +10,10 @@ datasource db {
 model Page {
   id   Int    @id @default(autoincrement())
   name String
-  seos SEO[]
+  seos Seo[]
 }
 
-model SEO {
+model Seo {
   id          Int    @id @default(autoincrement())
   title       String
   description String
