@@ -13,12 +13,12 @@ export const createPage = async (
 ) => {
   const { body } = req;
   if ("name" in body) {
-    const newPage = await prisma.page.create({
+    const page = await prisma.page.create({
       data: {
         name: body.name,
       },
     });
-    return res.status(200).json({ newPage });
+    return res.status(200).json({ page });
   }
   return res.status(500).end();
 };
