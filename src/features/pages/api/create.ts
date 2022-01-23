@@ -1,24 +1,24 @@
 import { prisma } from "../../../libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
-
-export interface ExtendedNextApiRequest extends NextApiRequest {
-  body: {
-    name: string;
-  };
-}
+import Joi from "joi"
 
 export const createPage = async (
-  req: ExtendedNextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { body } = req;
-  if ("name" in body) {
+  try {
+    const schema = Joi.object({
+      name: Joi.string().required()
+    })
+    const { body } = req;
+    await schema.validateAsync(body)
     const page = await prisma.page.create({
       data: {
         name: body.name,
       },
     });
     return res.status(200).json({ page });
+  } catch (error) {
+    return res.status(400).json({ error })
   }
-  return res.status(500).end();
 };
