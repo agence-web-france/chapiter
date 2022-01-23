@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { methodNotAllowed } from "../../../features/common/api/methodNotAllowed";
 import { createPage } from "../../../features/pages/api/create";
 import { getPages } from "../../../features/pages/api/read";
 
@@ -9,6 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     return getPages(req, res);
   }
+  return methodNotAllowed(res);
 };
 
 export default handler;
