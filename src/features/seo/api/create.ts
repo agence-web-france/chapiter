@@ -1,28 +1,29 @@
 import { prisma } from "../../../libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
-
-export interface ExtendedNextApiRequest extends NextApiRequest {
-  body: {
-    title: string;
-    description: string;
-    pageId: string;
-  };
-}
+import Joi from "joi";
 
 export const createSeo = async (
-  req: ExtendedNextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const { body } = req;
-  if ("title" in body && "description" in body && "pageId" in body) {
+  try {
+    const schema = Joi.object({
+      title: Joi.string().required(),
+      description: Joi.string().required(),
+      pageId: Joi.number().required()
+    })
+    const { body } = req;
+    const value = {
+      title: body.title,
+      description: body.description,
+      pageId: parseInt(body.pageId),
+    }
+    await schema.validateAsync(value)
     const seo = await prisma.seo.create({
-      data: {
-        title: body.title,
-        description: body.description,
-        pageId: parseInt(body.pageId),
-      },
+      data: value,
     });
     return res.status(200).json({ seo });
+  } catch (error) {
+    return res.status(400).json({ error })
   }
-  return res.status(500).end();
 };
