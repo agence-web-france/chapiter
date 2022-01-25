@@ -10,14 +10,14 @@ datasource db {
 model Page {
   id   Int    @id @default(autoincrement())
   name String
-  seo Seo?
+  seo  Seo?
 }
 
 model Seo {
   id          Int    @id @default(autoincrement())
   title       String
   description String
-  pageId      Int
+  pageId      Int    @unique
   page        Page   @relation(fields: [pageId], references: [id])
 }
 
@@ -47,5 +47,7 @@ model Property {
   id      Int    @id @default(autoincrement())
   name    String
   fieldId Int
+  type    String
+  value   String
   field   Field  @relation(fields: [fieldId], references: [id])
 }
