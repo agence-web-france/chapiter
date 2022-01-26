@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/common/api/methodNotAllowed";
+import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
 import { deleteField } from "../../../features/fields/api/delete";
 import { getField } from "../../../features/fields/api/read";
 import { updateField } from "../../../features/fields/api/update";

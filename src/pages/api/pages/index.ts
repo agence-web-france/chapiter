@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/common/api/methodNotAllowed";
+import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
 import { createPage } from "../../../features/pages/api/create";
 import { getPages } from "../../../features/pages/api/read";
 

@@ -2,16 +2,16 @@ import { prisma } from "../../../libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import Joi from "joi";
 
-export const getComponents = async (req: NextApiRequest, res: NextApiResponse) => {
+export const getCollections = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const components = await prisma.component.findMany();
-    return res.status(200).json({ components });
+    const collections = await prisma.collection.findMany();
+    return res.status(200).json({ collections });
   } catch (error) {
     return res.status(400).json({ error })
   }
 };
 
-export const getComponent = async (req: NextApiRequest, res: NextApiResponse) => {
+export const getCollection = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const schema = Joi.object({
       id: Joi.number().required()
@@ -20,15 +20,15 @@ export const getComponent = async (req: NextApiRequest, res: NextApiResponse) =>
     if (typeof query.id === "string") {
       const value = { id: parseInt(query.id) }
       await schema.validateAsync(value)
-      const component = await prisma.component.findUnique({
+      const collection = await prisma.collection.findUnique({
         where: {
           id: parseInt(query.id),
         },
         include: {
-          fields: true
+          components: true
         }
       });
-      return res.status(200).json({ component });
+      return res.status(200).json({ collection });
     }
   } catch (error) {
     return res.status(400).json({ error })

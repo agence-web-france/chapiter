@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { createCollection } from "../../../features/collections/api/create";
+import { getCollections } from "../../../features/collections/api/read";
 import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
-import { createField } from "../../../features/fields/api/create";
-import { getFields } from "../../../features/fields/api/read";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    return createField(req, res);
+    return createCollection(req, res);
   }
   if (req.method === "GET") {
-    return getFields(req, res);
+    return getCollections(req, res);
   }
   return methodNotAllowed(res);
 };

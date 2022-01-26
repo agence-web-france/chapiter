@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/common/api/methodNotAllowed";
+import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
 import { deleteSeo } from "../../../features/seo/api/delete";
 import { getSeo } from "../../../features/seo/api/read";
 import { updateSeo } from "../../../features/seo/api/update";
