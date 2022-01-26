@@ -90,7 +90,6 @@ export const PrimaryMenu = () => {
     const { pathname } = useRouter()
     const { path, icon, name } = page
     const isActive = (path: string) => pathname.includes(path)
-    console.log(pathname, "includes", path)
 
     if (isActive(path)) {
       return <>
