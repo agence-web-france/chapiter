@@ -61,7 +61,7 @@ export const Menu = () => {
   return <>
     <ul className="fixed z-50 bottom-0 left-0 right-0 border-t border-gray-300 flex items-center justify-evenly text-sm">
       {pages.map(page => (
-        <MenuItem page={page} />
+        <MenuItem key={`key-${page.path}`} page={page} />
       ))}
     </ul>
   </>
