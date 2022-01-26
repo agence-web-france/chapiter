@@ -17,10 +17,10 @@ export const createComponent = async (
       collectionId: parseInt(body.collectionId),
     }
     await schema.validateAsync(value)
-    const field = await prisma.component.create({
+    const component = await prisma.component.create({
       data: value
     });
-    return res.status(200).json({ field });
+    return res.status(200).json({ component });
   } catch (error) {
     return res.status(400).json({ error })
   }
