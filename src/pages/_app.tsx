@@ -4,9 +4,9 @@ import { PrimaryMenu, SecondaryContentMenu } from '../components/menu/menu'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
-    <SecondaryContentMenu />
+    {/* <SecondaryContentMenu /> */}
     <Component {...pageProps} />
-    <PrimaryMenu />
+    {/* <PrimaryMenu /> */}
   </>
 }
 
