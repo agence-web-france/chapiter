@@ -1,6 +1,6 @@
 import { prisma } from "../../../libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
-import Joi from "joi"
+import Joi from "joi";
 
 export const createCollection = async (
   req: NextApiRequest,
@@ -9,17 +9,19 @@ export const createCollection = async (
   try {
     const schema = Joi.object({
       name: Joi.string().required(),
-    })
+      description: Joi.string().required(),
+    });
     const { body } = req;
     const value = {
       name: body.name,
-    }
-    await schema.validateAsync(value)
+      description: body.description,
+    };
+    await schema.validateAsync(value);
     const collection = await prisma.collection.create({
-      data: value
+      data: value,
     });
     return res.status(200).json({ collection });
   } catch (error) {
-    return res.status(400).json({ error })
+    return res.status(400).json({ error });
   }
 };

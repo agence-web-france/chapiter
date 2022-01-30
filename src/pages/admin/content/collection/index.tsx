@@ -1,28 +1,34 @@
-import { Collection } from '@prisma/client'
-import type { NextPage } from 'next'
-import Empty from '../../../../features/collections/components/empty/empty'
+import { Collection } from "@prisma/client";
+import type { NextPage } from "next";
+import { useState } from "react";
+import Empty from "../../../../features/collections/components/empty/empty";
+import New from "../../../../features/collections/components/new/new";
 
 type AdminCollectionPageProps = {
-  collections: Collection[]
-}
+  collections: Collection[];
+};
 
-const AdminCollectionPage: NextPage<AdminCollectionPageProps> = ({ collections }) => {
+const AdminCollectionPage: NextPage<AdminCollectionPageProps> = ({
+  collections,
+}) => {
+  const [open, setOpen] = useState(false);
 
   if (collections.length > 0) {
-    return <>list</>
+    return <>list</>;
   }
 
   return (
     <>
-      <Empty />
+      <Empty setOpen={setOpen} />
+      <New open={open} setOpen={setOpen} />
     </>
-  )
-}
+  );
+};
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/collections`)
-  const collections = await res.json()
-  return { props: { collections } }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections`);
+  const collections = await res.json();
+  return { props: { collections } };
 }
 
-export default AdminCollectionPage
+export default AdminCollectionPage;
