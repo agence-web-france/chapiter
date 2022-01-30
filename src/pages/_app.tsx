@@ -1,12 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { PrimaryMenu, SecondaryContentMenu } from '../components/menu/menu'
+import AdminLayout from '../components/menu/layout/admin/adminLayout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>
-    {/* <SecondaryContentMenu /> */}
-    <Component {...pageProps} />
-    {/* <PrimaryMenu /> */}
+    <AdminLayout>
+      <Component {...pageProps} />
+    </AdminLayout>
   </>
 }
 

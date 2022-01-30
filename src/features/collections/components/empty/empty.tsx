@@ -1,14 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { PlusIcon } from "@heroicons/react/solid";
-import { Dispatch, SetStateAction } from "react";
+import { PlusIcon } from "@heroicons/react/solid"
+import { Dispatch, SetStateAction } from "react"
 
 type EmptyProps = {
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
 
 export default function Empty({ setOpen }: EmptyProps) {
   return (
-    <section className="min-h-screen flex items-center justify-center">
+    <section className="flex items-center justify-center">
       <div className="text-center mt-8">
         <svg
           className="mx-auto h-12 w-12 text-gray-400"
@@ -43,5 +43,5 @@ export default function Empty({ setOpen }: EmptyProps) {
         </div>
       </div>
     </section>
-  );
+  )
 }

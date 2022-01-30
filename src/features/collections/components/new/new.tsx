@@ -1,33 +1,31 @@
-import { Dispatch, Fragment, SetStateAction, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { XIcon } from "@heroicons/react/outline";
-import { QuestionMarkCircleIcon } from "@heroicons/react/solid";
-import { SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
+import { Dispatch, Fragment, SetStateAction, useState } from "react"
+import { Dialog, Transition } from "@headlessui/react"
+import { XIcon } from "@heroicons/react/outline"
+import { QuestionMarkCircleIcon } from "@heroicons/react/solid"
+import { SubmitHandler, useForm } from "react-hook-form"
+import axios from "axios"
+import { API } from "../../../../libs/API"
 type NewProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
+  open: boolean
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
 
 type Inputs = {
-  name: string;
-  description: string;
-};
+  name: string
+  description: string
+}
 
 export default function New({ open, setOpen }: NewProps) {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const request = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/collections`,
-        { ...data },
-        { headers: { "Content-Type": "application/json" } }
-      );
+      const request = await API.post("/collections", { ...data })
+      location.reload()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -36,7 +34,7 @@ export default function New({ open, setOpen }: NewProps) {
         className="fixed inset-0 overflow-hidden"
         onClose={setOpen}
       >
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden bg-opacity-50 bg-black">
           <Dialog.Overlay className="absolute inset-0" />
 
           <div className="fixed inset-y-0 pl-16 max-w-full right-0 flex">
@@ -152,5 +150,5 @@ export default function New({ open, setOpen }: NewProps) {
         </div>
       </Dialog>
     </Transition.Root>
-  );
+  )
 }
