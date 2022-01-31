@@ -1,7 +1,7 @@
 import { Collection } from "@prisma/client"
 import type { NextPage } from "next"
-import { useState } from "react"
-import Empty from "../../../../features/collections/components/empty/empty"
+import React, { useState } from "react"
+import { CollectionContext } from "../../../../features/collections/ context/collection"
 import List from "../../../../features/collections/components/list/list"
 import New from "../../../../features/collections/components/new/new"
 
@@ -14,24 +14,19 @@ type AdminCollectionPageProps = {
 const AdminCollectionPage: NextPage<AdminCollectionPageProps> = ({
   data,
 }) => {
-  const [open, setOpen] = useState(false)
   const { collections } = data
 
-  if (collections.length > 0) {
-    return (
-      <>
-        <List setOpen={setOpen} collections={collections} />
-        <New open={open} setOpen={setOpen} />
-      </>
-    )
+  const [showNewModal, setShowNewModal] = useState(false)
+  const collectionContextValue = {
+    modal: {
+      new: { showNewModal, setShowNewModal }
+    }
   }
 
-  return (
-    <>
-      <Empty setOpen={setOpen} />
-      <New open={open} setOpen={setOpen} />
-    </>
-  )
+  return <CollectionContext.Provider value={collectionContextValue}>
+    <List collections={collections} />
+    <New />
+  </CollectionContext.Provider>
 }
 
 export async function getServerSideProps() {

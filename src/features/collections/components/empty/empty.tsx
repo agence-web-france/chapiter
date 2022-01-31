@@ -1,12 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { PlusIcon } from "@heroicons/react/solid"
-import { Dispatch, SetStateAction } from "react"
+import { useContext } from "react"
+import { CollectionContext } from "../../ context/collection"
 
-type EmptyProps = {
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export default function Empty({ setOpen }: EmptyProps) {
+export default function Empty() {
+  const collection = useContext(CollectionContext)
+  const { setShowNewModal } = collection.modal.new
   return (
     <section className="flex items-center justify-center">
       <div className="text-center mt-8">
@@ -33,7 +32,7 @@ export default function Empty({ setOpen }: EmptyProps) {
         </p>
         <div className="mt-6">
           <button
-            onClick={() => setOpen(true)}
+            onClick={() => setShowNewModal(true)}
             type="button"
             className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >

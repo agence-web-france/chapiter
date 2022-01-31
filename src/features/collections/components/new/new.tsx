@@ -1,26 +1,25 @@
-import { Dispatch, Fragment, SetStateAction, useState } from "react"
+import { Dispatch, Fragment, SetStateAction, useContext, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { XIcon } from "@heroicons/react/outline"
 import { QuestionMarkCircleIcon } from "@heroicons/react/solid"
 import { SubmitHandler, useForm } from "react-hook-form"
-import axios from "axios"
 import { API } from "../../../../libs/API"
-type NewProps = {
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
+import { CollectionContext } from "../../ context/collection"
 
 type Inputs = {
   name: string
   description: string
 }
 
-export default function New({ open, setOpen }: NewProps) {
+export default function New() {
   const { register, handleSubmit } = useForm<Inputs>()
+
+  const collection = useContext(CollectionContext)
+  const { showNewModal, setShowNewModal } = collection.modal.new
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const request = await API.post("/collections", { ...data })
+      await API.post("/collections", { ...data })
       location.reload()
     } catch (error) {
       console.error(error)
@@ -28,11 +27,11 @@ export default function New({ open, setOpen }: NewProps) {
   }
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={showNewModal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 overflow-hidden"
-        onClose={setOpen}
+        onClose={setShowNewModal}
       >
         <div className="absolute inset-0 overflow-hidden bg-opacity-50 bg-black">
           <Dialog.Overlay className="absolute inset-0" />
@@ -62,7 +61,7 @@ export default function New({ open, setOpen }: NewProps) {
                           <button
                             type="button"
                             className="bg-indigo-700 rounded-md text-indigo-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                            onClick={() => setOpen(false)}
+                            onClick={() => setShowNewModal(false)}
                           >
                             <span className="sr-only">Fermer l'onglet</span>
                             <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -132,7 +131,7 @@ export default function New({ open, setOpen }: NewProps) {
                     <button
                       type="button"
                       className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={() => setOpen(false)}
+                      onClick={() => setShowNewModal(false)}
                     >
                       Annuler
                     </button>
