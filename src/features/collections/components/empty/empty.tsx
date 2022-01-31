@@ -1,11 +1,10 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { PlusIcon } from "@heroicons/react/solid"
-import { useContext } from "react"
-import { CollectionContext } from "../../ context/collection"
+import { PlusIcon } from "@heroicons/react/solid";
+import { useContext } from "react";
+import { CollectionContext } from "features/collections/context/collection";
 
 export default function Empty() {
-  const collection = useContext(CollectionContext)
-  const { setShowNewModal } = collection.modal.new
+  const collection = useContext(CollectionContext);
+  const { setShowNewModal } = collection.modal.new;
   return (
     <section className="flex items-center justify-center">
       <div className="text-center mt-8">
@@ -42,5 +41,5 @@ export default function Empty() {
         </div>
       </div>
     </section>
-  )
+  );
 }

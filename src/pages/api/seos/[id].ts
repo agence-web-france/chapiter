@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
-import { deleteSeo } from "../../../features/seo/api/delete";
-import { getSeo } from "../../../features/seo/api/read";
-import { updateSeo } from "../../../features/seo/api/update";
+import { methodNotAllowed } from "features/commons/api/methodNotAllowed";
+import { deleteSeo } from "features/seo/api/delete";
+import { getSeo } from "features/seo/api/read";
+import { updateSeo } from "features/seo/api/update";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "DELETE") {

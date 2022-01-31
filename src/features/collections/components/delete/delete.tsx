@@ -1,26 +1,30 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useContext, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationIcon, XIcon } from '@heroicons/react/outline'
-import { CollectionContext } from '../../ context/collection'
-import { API } from '../../../../libs/API'
+import { Fragment, useContext } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationIcon, XIcon } from "@heroicons/react/outline";
+import { CollectionContext } from "features/collections/context/collection";
+import { API } from "libs/API";
 
 export default function Delete() {
-  const collection = useContext(CollectionContext)
-  const { showDeleteModal, setShowDeleteModal, deleteCollection } = collection.modal.delete
+  const collection = useContext(CollectionContext);
+  const { showDeleteModal, setShowDeleteModal, deleteCollection } =
+    collection.modal.delete;
 
   const remove = async () => {
     try {
-      await API.delete(`/collections/${deleteCollection?.id}`)      
-      location.reload()
+      await API.delete(`/collections/${deleteCollection?.id}`);
+      location.reload();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Transition.Root show={showDeleteModal} as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setShowDeleteModal}>
+      <Dialog
+        as="div"
+        className="fixed z-10 inset-0 overflow-y-auto"
+        onClose={setShowDeleteModal}
+      >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -34,7 +38,10 @@ export default function Delete() {
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
           {/* This element is to trick the browser into centering the modal contents. */}
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
           <Transition.Child
@@ -59,16 +66,24 @@ export default function Delete() {
               </div>
               <div className="sm:flex sm:items-start">
                 <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                  <ExclamationIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
+                  <ExclamationIcon
+                    className="h-6 w-6 text-red-600"
+                    aria-hidden="true"
+                  />
                 </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg leading-6 font-medium text-gray-900"
+                  >
                     Supprimer la collection "{deleteCollection?.name}"
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      Êtes-vous sûr de vouloir supprimer la collection "{deleteCollection?.name}" ? <br />
-                      L'opération est irréversible et vous perdrez toutes les données associés à cette collection.
+                      Êtes-vous sûr de vouloir supprimer la collection "
+                      {deleteCollection?.name}" ? <br />
+                      L'opération est irréversible et vous perdrez toutes les
+                      données associés à cette collection.
                     </p>
                   </div>
                 </div>
@@ -94,5 +109,5 @@ export default function Delete() {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

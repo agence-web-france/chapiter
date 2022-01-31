@@ -1,17 +1,14 @@
-import { prisma } from "../../../libs/PrismaClient";
+import { prisma } from "libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
-import Joi from "joi"
+import Joi from "joi";
 
-export const createPage = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+export const createPage = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const schema = Joi.object({
-      name: Joi.string().required()
-    })
+      name: Joi.string().required(),
+    });
     const { body } = req;
-    await schema.validateAsync(body)
+    await schema.validateAsync(body);
     const page = await prisma.page.create({
       data: {
         name: body.name,
@@ -19,6 +16,6 @@ export const createPage = async (
     });
     return res.status(200).json({ page });
   } catch (error) {
-    return res.status(400).json({ error })
+    return res.status(400).json({ error });
   }
 };

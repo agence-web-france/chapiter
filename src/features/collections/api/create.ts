@@ -1,4 +1,4 @@
-import { prisma } from "../../../libs/PrismaClient";
+import { prisma } from "libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import Joi from "joi";
 

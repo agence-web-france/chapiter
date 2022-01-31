@@ -1,6 +1,6 @@
-import { prisma } from "../../../libs/PrismaClient";
+import { prisma } from "libs/PrismaClient";
 import { NextApiRequest, NextApiResponse } from "next";
-import Joi from "joi"
+import Joi from "joi";
 
 export const createComponent = async (
   req: NextApiRequest,
@@ -10,18 +10,18 @@ export const createComponent = async (
     const schema = Joi.object({
       name: Joi.string().required(),
       collectionId: Joi.number().required(),
-    })
+    });
     const { body } = req;
     const value = {
       name: body.name,
       collectionId: parseInt(body.collectionId),
-    }
-    await schema.validateAsync(value)
+    };
+    await schema.validateAsync(value);
     const component = await prisma.component.create({
-      data: value
+      data: value,
     });
     return res.status(200).json({ component });
   } catch (error) {
-    return res.status(400).json({ error })
+    return res.status(400).json({ error });
   }
 };

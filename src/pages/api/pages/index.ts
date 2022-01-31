@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
-import { createPage } from "../../../features/pages/api/create";
-import { getPages } from "../../../features/pages/api/read";
+import { methodNotAllowed } from "features/commons/api/methodNotAllowed";
+import { createPage } from "features/pages/api/create";
+import { getPages } from "features/pages/api/read";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
