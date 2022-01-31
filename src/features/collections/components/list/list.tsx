@@ -12,6 +12,7 @@ type AdminCollectionListProps = {
 export default function List({ collections }: AdminCollectionListProps) {
   const collection = useContext(CollectionContext)
   const { setShowNewModal } = collection.modal.new
+  const { setShowDeleteModal, setDeleteCollection } = collection.modal.delete
 
   if (collections.length > 0) {
     return (
@@ -29,13 +30,16 @@ export default function List({ collections }: AdminCollectionListProps) {
             <div>
               <div className="-mt-px flex divide-x divide-gray-200">
                 <div className="w-0 flex-1 flex">
-                  <a
-                    href={""}
+                  <div
+                    onClick={() => {
+                      setDeleteCollection(collection)
+                      setShowDeleteModal(true)
+                    }}
                     className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                   >
                     <TrashIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
                     <span className="ml-3">Supprimer</span>
-                  </a>
+                  </div>
                 </div>
                 <div className="-ml-px w-0 flex-1 flex bg-indigo-500 hover:bg-indigo-600">
                   <a
