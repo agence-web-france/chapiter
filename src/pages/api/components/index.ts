@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
-import { createComponent } from "../../../features/components/api/create";
-import { getComponents } from "../../../features/components/api/read";
+import { methodNotAllowed } from "features/commons/api/methodNotAllowed";
+import { createComponent } from "features/components/api/create";
+import { getComponents } from "features/components/api/read";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {

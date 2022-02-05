@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { createCollection } from "../../../features/collections/api/create";
-import { getCollections } from "../../../features/collections/api/read";
-import { methodNotAllowed } from "../../../features/commons/api/methodNotAllowed";
+import { createCollection } from "features/collections/api/create";
+import { getCollections } from "features/collections/api/read";
+import { methodNotAllowed } from "features/commons/api/methodNotAllowed";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {

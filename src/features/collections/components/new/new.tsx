@@ -1,30 +1,30 @@
-import { Dispatch, Fragment, SetStateAction, useContext, useState } from "react"
-import { Dialog, Transition } from "@headlessui/react"
-import { XIcon } from "@heroicons/react/outline"
-import { QuestionMarkCircleIcon } from "@heroicons/react/solid"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { API } from "../../../../libs/API"
-import { CollectionContext } from "../../ context/collection"
+import { Fragment, useContext } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/outline";
+import { QuestionMarkCircleIcon } from "@heroicons/react/solid";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { API } from "libs/API";
+import { CollectionContext } from "features/collections/context/collection";
 
 type Inputs = {
-  name: string
-  description: string
-}
+  name: string;
+  description: string;
+};
 
 export default function New() {
-  const { register, handleSubmit } = useForm<Inputs>()
+  const { register, handleSubmit } = useForm<Inputs>();
 
-  const collection = useContext(CollectionContext)
-  const { showNewModal, setShowNewModal } = collection.modal.new
+  const collection = useContext(CollectionContext);
+  const { showNewModal, setShowNewModal } = collection.modal.new;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      await API.post("/collections", { ...data })
-      location.reload()
+      await API.post("/collections", { ...data });
+      location.reload();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <Transition.Root show={showNewModal} as={Fragment}>
@@ -149,5 +149,5 @@ export default function New() {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }
