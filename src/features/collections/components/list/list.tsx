@@ -4,6 +4,7 @@ import { Collection } from '@prisma/client'
 import { useContext } from 'react'
 import { CollectionContext } from '../../ context/collection'
 import Empty from '../empty/empty'
+import Link from "next/link"
 
 type AdminCollectionListProps = {
   collections: Collection[]
@@ -42,13 +43,15 @@ export default function List({ collections }: AdminCollectionListProps) {
                   </div>
                 </div>
                 <div className="-ml-px w-0 flex-1 flex bg-indigo-500 hover:bg-indigo-600">
-                  <a
-                    href={""}
-                    className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-                  >
-                    <PencilAltIcon className="w-5 h-5 text-white" aria-hidden="true" />
-                    <span className="ml-3 text-white">Éditer</span>
-                  </a>
+                  <Link href={`/admin/content/collection/${collection.id}`}>
+                    <a
+                      href={""}
+                      className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                    >
+                      <PencilAltIcon className="w-5 h-5 text-white" aria-hidden="true" />
+                      <span className="ml-3 text-white">Éditer</span>
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>
