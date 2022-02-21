@@ -1,3 +1,5 @@
+import AdminMenu from "components/menu/admin/AdminMenu"
+
 type AdminLayoutProps = {
   children: JSX.Element
 }
@@ -5,6 +7,7 @@ type AdminLayoutProps = {
 export default function AdminLayout({ children }: AdminLayoutProps) {
   return (
     <>
+    <AdminMenu />
       <main>
         {children}
       </main>

@@ -5,7 +5,11 @@ module.exports = {
     "./features/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['Source Sans Pro']
+      }
+    },
   },
   plugins: ["@tailwindcss/forms"],
 }

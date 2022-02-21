@@ -1,6 +1,6 @@
 import 'styles/globals.css'
 import type { AppProps } from 'next/app'
-import AdminLayout from 'components/menu/layout/admin/adminLayout'
+import AdminLayout from 'components/layout/admin/adminLayout'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <>

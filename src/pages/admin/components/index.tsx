@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 
-const Home: NextPage = () => {
+const Components: NextPage = () => {
   return (
     <></>
   )
 }
 
-export default Home
+export default Components
