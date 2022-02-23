@@ -21,7 +21,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="bg-slate-50">
           <Main />
           <div id="modal" />
           <NextScript />

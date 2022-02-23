@@ -22,8 +22,8 @@ export default function Menu() {
   const router = useRouter()
   return (
     <>
-      <nav className="lg:hidden fixed bottom-0 left-0 w-full border-t border-gray-300">
-        <ul className="flex justify-between items-center overflow-x-auto px-4 py-2 mx-auto max-w-md">
+      <nav className="lg:hidden fixed bottom-0 left-0 w-full border-t border-gray-300 bg-white">
+        <ul className="flex justify-between items-center overflow-x-auto px-6 py-1 mx-auto max-w-md">
           {links.map((link) => (
             <li key={link.name} className="p-2">
               <Link href={link.href}>
