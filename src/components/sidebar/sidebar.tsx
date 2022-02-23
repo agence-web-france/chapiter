@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import cx from "classnames";
 
 import {
   BookOpenIcon,
@@ -10,20 +11,22 @@ import {
   ChartSquareBarIcon,
   LogoutIcon,
 } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 const content = [
-  { name: "Accueil", href: "/admin/home/", icon: HomeIcon },
-  { name: "Pages", href: "/admin/pages/", icon: BookOpenIcon },
-  { name: "Collections", href: "/admin/collections/", icon: CollectionIcon },
-  { name: "Composants", href: "/admin/components/", icon: CubeTransparentIcon },
+  { name: "Accueil", href: "/admin/home", icon: HomeIcon },
+  { name: "Pages", href: "/admin/pages", icon: BookOpenIcon },
+  { name: "Collections", href: "/admin/collections", icon: CollectionIcon },
+  { name: "Composants", href: "/admin/components", icon: CubeTransparentIcon },
 ];
 
 const activity = [
   { name: "Messages", href: "/admin/messages", icon: AnnotationIcon },
-  { name: "Statistiques", href: "/admin/stats/", icon: ChartSquareBarIcon },
+  { name: "Statistiques", href: "/admin/stats", icon: ChartSquareBarIcon },
 ];
 
 export default function Sidebar() {
+  const router = useRouter()
   return (
     <>
       <section className="bg-teal-900 h-screen w-1/4 xl:w-1/5 p-8 max-h-full relative overflow-y-auto hidden lg:block">
@@ -49,7 +52,7 @@ export default function Sidebar() {
             {content.map((item) => (
               <li key={item.name} className="flow-root">
                 <Link href={item.href}>
-                  <a className="p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150">
+                  <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath === item.href && "bg-teal-800")}>
                     <item.icon
                       className="flex-shrink-0 h-6 w-6 text-teal-50"
                       aria-hidden="true"
@@ -69,7 +72,7 @@ export default function Sidebar() {
             {activity.map((item) => (
               <li key={item.name} className="flow-root">
                 <Link href={item.href}>
-                  <a className="p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150">
+                  <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath === item.href && "bg-teal-800")}>
                     <item.icon
                       className="flex-shrink-0 h-6 w-6 text-teal-50"
                       aria-hidden="true"
