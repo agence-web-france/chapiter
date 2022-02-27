@@ -22,18 +22,21 @@ model Seo {
 }
 
 model Collection {
-  id         Int         @id @default(autoincrement())
-  name       String
+  id          Int         @id @default(autoincrement())
+  name        String
   description String
-  components Component[]
+  components  Component[]
 }
 
 model Component {
-  id           Int        @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   name         String
   collectionId Int
-  collection   Collection @relation(fields: [collectionId], references: [id])
+  collection   Collection  @relation(fields: [collectionId], references: [id])
   fields       Field[]
+  componentId  Int?
+  component    Component?  @relation("ComponentInComponent", fields: [componentId], references: [id])
+  components   Component[] @relation("ComponentInComponent")
 }
 
 model Field {

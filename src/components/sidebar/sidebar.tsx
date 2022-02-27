@@ -14,8 +14,8 @@ import {
 import { useRouter } from "next/router";
 
 const content = [
-  { name: "Accueil", href: "/admin/home", icon: HomeIcon },
-  { name: "Pages", href: "/admin/pages", icon: BookOpenIcon },
+  // { name: "Accueil", href: "/admin/home", icon: HomeIcon },
+  // { name: "Pages", href: "/admin/pages", icon: BookOpenIcon },
   { name: "Collections", href: "/admin/collections", icon: CollectionIcon },
   { name: "Composants", href: "/admin/components", icon: CubeTransparentIcon },
 ];
@@ -35,7 +35,7 @@ export default function Sidebar() {
             <Image src="/images/logo-white.svg" alt="" width={24} height={24} />
           </div>
           <h1 className="text-white text-xl font-semibold ml-4">
-            agence-web-france.com
+            votre-site-web.com
           </h1>
         </div>
         <div className="mb-16">
