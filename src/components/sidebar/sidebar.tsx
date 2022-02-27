@@ -14,16 +14,11 @@ import {
 import { useRouter } from "next/router";
 
 const content = [
-  // { name: "Accueil", href: "/admin/home", icon: HomeIcon },
-  // { name: "Pages", href: "/admin/pages", icon: BookOpenIcon },
-  { name: "Collections", href: "/admin/collections", icon: CollectionIcon },
-  { name: "Composants", href: "/admin/components", icon: CubeTransparentIcon },
-];
-
-const activity = [
+  { name: "Contenus", href: "/admin/content", icon: CollectionIcon },
   { name: "Messages", href: "/admin/messages", icon: AnnotationIcon },
   { name: "Statistiques", href: "/admin/stats", icon: ChartSquareBarIcon },
 ];
+
 
 export default function Sidebar() {
   const router = useRouter()
@@ -46,30 +41,10 @@ export default function Sidebar() {
         </div>
         <div className="mb-16">
           <h3 className="text-sm font-medium tracking-wide text-teal-50 uppercase">
-            Gestion du contenu
+            Menu de navigation
           </h3>
           <ul role="list" className="mt-5">
             {content.map((item) => (
-              <li key={item.name} className="flow-root">
-                <Link href={item.href}>
-                  <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath === item.href && "bg-teal-800")}>
-                    <item.icon
-                      className="flex-shrink-0 h-6 w-6 text-teal-50"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-4">{item.name}</span>
-                  </a>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="mb-8">
-          <h3 className="text-sm font-medium tracking-wide text-teal-50 uppercase">
-            Gestion de l'activité
-          </h3>
-          <ul role="list" className="mt-5">
-            {activity.map((item) => (
               <li key={item.name} className="flow-root">
                 <Link href={item.href}>
                   <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath === item.href && "bg-teal-800")}>
