@@ -3,10 +3,7 @@ import Link from "next/link";
 import cx from "classnames";
 
 import {
-  BookOpenIcon,
   CollectionIcon,
-  CubeTransparentIcon,
-  HomeIcon,
   AnnotationIcon,
   ChartSquareBarIcon,
   LogoutIcon,
@@ -59,9 +56,9 @@ export default function Sidebar() {
             ))}
           </ul>
         </div>
-        <button className="flex items-center py-4 px-6 bg-teal-800 text-teal-50 lg:absolute lg:bottom-8 lg:left-8 hover:bg-teal-700 transition ease-in-out duration-150">
+        <button className="flex items-center xl:py-4 xl:px-6 p-2 bg-teal-800 text-teal-50 hover:bg-teal-700 transition ease-in-out duration-150">
           <LogoutIcon className="flex-shrink-0 h-6 w-6" aria-hidden="true" />
-          <span className="ml-4">Se déconnecter</span>
+          <span className="xl:ml-4 ml-2 whitespace-nowrap">Se déconnecter</span>
         </button>
       </section>
     </>

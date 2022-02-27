@@ -1,45 +1,48 @@
 import { Collection } from "@prisma/client";
+import cx from "classnames";
+import { PlusIcon } from "@heroicons/react/outline";
 
 type ListProps = {
   collections: Collection[];
 };
 
 export default function List({ collections }: ListProps) {
-  return <>
-    <div className="p-6 m-6 rounded border bg-white card">
-      <h2 className="text-2xl font-semibold">
-        Liste des collections
-      </h2>
-      <div className="flow-root mt-6">
-        <ul role="list" className="-my-5 divide-y divide-gray-200">
-          {collections.map((collection) => (
-            <li key={collection.name} className="py-4">
-              <div className="flex items-center space-x-2">
-                <div className="flex-shrink-0">
-                </div>
-                <div className="flex-1 min-w-0 pr-4">
-                  <p className="text-sm font-medium text-gray-900 truncate">{collection.name}</p>
-                  <p className="text-xs font-medium text-gray-900 truncate">{collection.description}</p>
-                </div>
-                <div>
-                  <button
-                    className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"
-                  >
-                    Éditer
-                  </button>
-                </div>
-                <div>
-                  <button
-                    className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-red-300 text-sm leading-5 font-medium rounded-full text-red-700 bg-white hover:bg-red-50"
-                  >
-                    Supprimer
-                  </button>
-                </div>
+  return (
+    <>
+      <nav
+        aria-label="Sections"
+        className="flex-shrink-0 xl:w-96 lg:w-60 w-full bg-white border-r border-blue-gray-200 flex flex-col max-h-screen lg:min-h-screen relative overflow-y-auto"
+      >
+        <div className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center">
+          <p className="text-lg font-medium text-blue-gray-900">Contenus</p>
+        </div>
+        <ul className="flex-1 min-h-0 overflow-y-auto">
+          {collections.map((item) => (
+            <li
+              key={item.name}
+              className={cx(
+                "flex p-6 border-b border-gray-200 hover:bg-blue-50 hover:bg-opacity-50 cursor-pointer"
+              )}
+            >
+              <div className="ml-3 text-sm">
+                <p className="font-medium text-gray-900">{item.name}</p>
+                <p className="mt-1 text-gray-500">{item.description}</p>
               </div>
             </li>
           ))}
+          <li className="bg-teal-100 flex p-6 border-b border-gray-200 lg:absolute lg:bottom-0 w-full">
+            <div className="ml-3 text-sm flex">
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+              >
+                <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                Créer une nouvelle collection
+              </button>
+            </div>
+          </li>
         </ul>
-      </div>
-    </div>
-  </>
+      </nav>
+    </>
+  );
 }
