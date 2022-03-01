@@ -1,12 +1,14 @@
 import { Collection } from "@prisma/client";
 import cx from "classnames";
 import { PlusIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 
 type ListProps = {
   collections: Collection[];
+  collectionSelected?: number;
 };
 
-export default function List({ collections }: ListProps) {
+export default function List({ collections, collectionSelected }: ListProps) {
   return (
     <>
       <nav
@@ -17,17 +19,19 @@ export default function List({ collections }: ListProps) {
           <p className="text-lg font-medium text-blue-gray-900">Contenus</p>
         </div>
         <ul className="flex-1 min-h-0 overflow-y-auto">
-          {collections.map((item) => (
+          {collections.map((collection) => (
             <li
-              key={item.name}
+              key={collection.name}
               className={cx(
-                "flex p-6 border-b border-gray-200 hover:bg-blue-50 hover:bg-opacity-50 cursor-pointer"
+                "flex p-6 border-b border-gray-200 hover:bg-blue-50 hover:bg-opacity-50 cursor-pointer", collection.id === collectionSelected && "bg-opacity-50 bg-blue-50"
               )}
             >
-              <div className="ml-3 text-sm">
-                <p className="font-medium text-gray-900">{item.name}</p>
-                <p className="mt-1 text-gray-500">{item.description}</p>
-              </div>
+              <Link href={`/admin/content/${collection.id}`}>
+                <a className="ml-3 text-sm">
+                  <p className="font-medium text-gray-900">{collection.name}</p>
+                  <p className="mt-1 text-gray-500">{collection.description}</p>
+                </a>
+              </Link>
             </li>
           ))}
           <li className="bg-teal-100 flex p-6 border-b border-gray-200 lg:absolute lg:bottom-0 w-full">

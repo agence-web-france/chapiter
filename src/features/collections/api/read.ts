@@ -34,6 +34,10 @@ export const getCollection = async (
           components: true,
         },
       });
+      if (typeof query.collections !== "undefined") {
+        const collections = await prisma.collection.findMany();
+        return res.status(200).json({ collection, collections });
+      }
       return res.status(200).json({ collection });
     }
   } catch (error) {
