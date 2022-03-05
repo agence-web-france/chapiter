@@ -8,6 +8,9 @@ module.exports = {
     extend: {
       fontFamily: {
         'sans': ['Source Sans Pro']
+      },
+      width: {
+        '3/8': '37.5%',
       }
     },
   },

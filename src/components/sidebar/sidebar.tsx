@@ -12,8 +12,6 @@ import { useRouter } from "next/router";
 
 const content = [
   { name: "Contenus", href: "/admin/content", icon: CollectionIcon },
-  { name: "Messages", href: "/admin/messages", icon: AnnotationIcon },
-  { name: "Statistiques", href: "/admin/stats", icon: ChartSquareBarIcon },
 ];
 
 
@@ -26,7 +24,7 @@ export default function Sidebar() {
           <div className="bg-teal-800 flex items-center p-2">
             <Image src="/images/logo-white.svg" alt="" width={24} height={24} />
           </div>
-          <h1 className="text-white text-xl font-semibold ml-4">
+          <h1 className="text-white text-xl font-semibold ml-4 leading-none">
             votre-site-web.com
           </h1>
         </div>
@@ -44,7 +42,7 @@ export default function Sidebar() {
             {content.map((item) => (
               <li key={item.name} className="flow-root">
                 <Link href={item.href}>
-                  <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath === item.href && "bg-teal-800")}>
+                  <a className={cx("p-3 flex items-center rounded-md text-base font-medium text-teal-50 hover:bg-teal-800 transition ease-in-out duration-150", router.asPath.includes("/admin/content") && "bg-teal-800")}>
                     <item.icon
                       className="flex-shrink-0 h-6 w-6 text-teal-50"
                       aria-hidden="true"
@@ -56,10 +54,10 @@ export default function Sidebar() {
             ))}
           </ul>
         </div>
-        <button className="flex items-center xl:py-4 xl:px-6 p-2 bg-teal-800 text-teal-50 hover:bg-teal-700 transition ease-in-out duration-150">
+        {/* <button className="flex items-center xl:py-4 xl:px-6 p-2 bg-teal-800 text-teal-50 hover:bg-teal-700 transition ease-in-out duration-150">
           <LogoutIcon className="flex-shrink-0 h-6 w-6" aria-hidden="true" />
           <span className="xl:ml-4 ml-2 whitespace-nowrap">Se déconnecter</span>
-        </button>
+        </button> */}
       </section>
     </>
   );

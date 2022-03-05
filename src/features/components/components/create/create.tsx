@@ -1,11 +1,11 @@
 import InputText from "components/form/inputs/text";
 import ButtonSubmit from "components/form/buttons/submit";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { API } from "libs/API";
 
 type Inputs = {
   name: string;
-  description: string;
+  fields: Field[];
 };
 
 function CreateForm({ open, setOpen }: CreateProps) {
@@ -13,8 +13,17 @@ function CreateForm({ open, setOpen }: CreateProps) {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control, // control props comes from useForm (optional: if you are using FormContext)
+      name: "fields", // unique name for your Field Array
+    }
+  );
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       await API.post("/collections", { ...data });
@@ -25,15 +34,16 @@ function CreateForm({ open, setOpen }: CreateProps) {
   };
   return (
     <>
-      <section className="p-6 lg:m-6 rounded bg-white card">
-        <h2 className="text-2xl font-semibold mb-4">
-          Créer une nouvelle collection
-        </h2>
-        <p>
-          Créer une nouvelle collection afin de gérer les contenus qui se répète
-          sur votre site web.
+      <section className="p-6 rounded bg-white card">
+        <h2 className="text-2xl font-semibold mb-4 px-2">Créer un nouvel élément</h2>
+        <p className="leading-5 pb-4 px-2">
+          Créer une nouvel élément afin de lui insérer des champs pour gérer son
+          contenu.
         </p>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="max-h-80 overflow-y-auto px-2"
+        >
           <InputText error={errors.name}>
             <>
               <label htmlFor="name" className="input-text--label">
@@ -49,24 +59,24 @@ function CreateForm({ open, setOpen }: CreateProps) {
               />
             </>
           </InputText>
-          <InputText error={errors.description}>
-            <>
-              <label htmlFor="description" className="input-text--label">
-                Description
-              </label>
-              <textarea
-                {...register("description", {
-                  required: "La description est requise.",
-                })}
-                name="description"
-                id="description"
-                className="input-text"
-                placeholder=""
-                rows={5}
-                cols={33}
+          <div>
+            {fields.map((field, index) => (
+              <input
+                key={field.id} // important to include key with field's id
+                {...register(`fields.${index}.id`)}
               />
-            </>
-          </InputText>
+            ))}
+          </div>
+          <div>
+            <button
+              onClick={() => append({})}
+              type="button"
+              className="inline-flex items-center mb-4 px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+            >
+              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              Ajouter un champ
+            </button>
+          </div>
           <div className="flex items-center justify-end">
             <button
               type="button"
@@ -93,7 +103,8 @@ type CreateProps = {
 
 import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
+import { CheckIcon, PlusIcon } from "@heroicons/react/outline";
+import { Field } from "@prisma/client";
 
 export default function Create({ open, setOpen }: CreateProps) {
   return (

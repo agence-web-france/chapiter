@@ -12,8 +12,6 @@ import { useRouter } from "next/router";
 
 const links = [
   { name: "Contenus", href: "/admin/content", icon: CollectionIcon },
-  { name: "Messages", href: "/admin/messages", icon: AnnotationIcon },
-  { name: "Statistiques", href: "/admin/stats", icon: ChartSquareBarIcon },
 ];
 
 export default function Menu() {
@@ -25,7 +23,7 @@ export default function Menu() {
           {links.map((link) => (
             <li key={link.name} className="py-2 px-4">
               <Link href={link.href}>
-                <a className={cx("flex items-center flex-col", router.asPath === link.href ? "text-teal-700" : "text-gray-500")}>
+                <a className={cx("flex items-center flex-col", router.asPath.includes("/admin/content/") ? "text-teal-700" : "text-gray-500")}>
                   <link.icon
                     className="flex-shrink-0 h-6 w-6 mb-1"
                     aria-hidden="true"

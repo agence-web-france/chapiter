@@ -1,10 +1,12 @@
-import { Collection } from "@prisma/client";
-import Create from "features/collections/components/create/create";
-import List from "features/collections/components/list/list";
+import { Collection, Component } from "@prisma/client";
+import ListCollections from "features/collections/components/list/list";
+import ListComponents from "features/components/components/list/list";
 import type { NextPage } from "next";
 
+type CollectionWithComponents = Collection & { components: Component[] };
+
 type AdminCollectionPageProps = {
-  collection: Collection;
+  collection: CollectionWithComponents;
   collections: Collection[];
 };
 
@@ -14,7 +16,16 @@ const Collections: NextPage<AdminCollectionPageProps> = ({
 }) => {
   return (
     <>
-      <List collections={collections} collectionSelected={collection.id} />
+      <div className="lg:flex w-full">
+        <ListCollections
+          collections={collections}
+          collectionSelected={collection.id}
+        />
+        <ListComponents
+          collection={collection}
+          components={collection.components}
+        />
+      </div>
     </>
   );
 };

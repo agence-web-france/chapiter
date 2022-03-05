@@ -4,13 +4,12 @@ import List from "features/collections/components/list/list";
 import type { NextPage } from "next";
 
 type AdminCollectionPageProps = {
-  data: {
-    collections: Collection[];
-  };
+  collections: Collection[];
 };
 
-const Collections: NextPage<AdminCollectionPageProps> = ({ data }) => {
-  const { collections } = data;
+const Collections: NextPage<AdminCollectionPageProps> = ({
+  collections,
+}) => {
   return (
     <>
       <List collections={collections} />
@@ -21,11 +20,13 @@ const Collections: NextPage<AdminCollectionPageProps> = ({ data }) => {
 export default Collections;
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections`);
-  const data = await res.json();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/collections`
+  );
+  const { collections } = await res.json();
   return {
     props: {
-      data,
+      collections,
     },
   };
 }
