@@ -2,18 +2,30 @@ import InputText from "components/form/inputs/text";
 import ButtonSubmit from "components/form/buttons/submit";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { API } from "libs/API";
+import FieldForm from "features/fields/components/field";
+
+type PropertyWithTypes = Property & {
+  type: "Texte" | "Image" | "Date";
+};
+
+type FieldWithProperties = Field & {
+  properties: PropertyWithTypes[];
+};
 
 type Inputs = {
   name: string;
-  fields: Field[];
+  collectionId: number;
+  fields: FieldWithProperties[];
 };
 
-function CreateForm({ open, setOpen }: CreateProps) {
+function CreateForm({ open, setOpen, collection }: CreateProps) {
   const {
     register,
     handleSubmit,
     watch,
     control,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -25,29 +37,65 @@ function CreateForm({ open, setOpen }: CreateProps) {
   );
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try {
-      await API.post("/collections", { ...data });
-      location.reload();
-    } catch (error) {
-      console.error(error);
-    }
+    console.log(data);
+    // try {
+    //   await API.post("/components", { ...data });
+    //   location.reload();
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
+
+  const maxModalHeight = window.innerHeight * (50 / 100);
+
+  useEffect(() => {
+    setValue("collectionId", collection.id);
+  }, []);
+
   return (
     <>
-      <section className="p-6 rounded bg-white card">
-        <h2 className="text-2xl font-semibold mb-4 px-2">Créer un nouvel élément</h2>
+      <section className="lg:px-6 lg:py-5 p-4 rounded bg-white card">
+        <h2 className="text-2xl font-semibold mb-4 px-2">
+          Créer un nouvel élément
+        </h2>
         <p className="leading-5 pb-4 px-2">
           Créer une nouvel élément afin de lui insérer des champs pour gérer son
           contenu.
         </p>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="max-h-80 overflow-y-auto px-2"
+          className="overflow-y-auto px-2"
+          style={{
+            maxHeight:
+              window.innerWidth < 768
+                ? `${window.innerHeight * (50 / 100)}px`
+                : `${window.innerHeight * (66 / 100)}px`,
+          }}
         >
+          <InputText error={errors.collectionId}>
+            <>
+              <label
+                htmlFor="collectionId"
+                className="input-text--label disabled"
+              >
+                {collection.name}
+              </label>
+              <input
+                {...register("collectionId")}
+                type="text"
+                name="collectionId"
+                id="collectionId"
+                className="hidden"
+                placeholder=""
+                value={collection.id}
+                disabled={true}
+              />
+            </>
+          </InputText>
           <InputText error={errors.name}>
             <>
               <label htmlFor="name" className="input-text--label">
-                Nom
+                Nom de l'élément
               </label>
               <input
                 {...register("name", { required: "Le nom est requis." })}
@@ -61,10 +109,11 @@ function CreateForm({ open, setOpen }: CreateProps) {
           </InputText>
           <div>
             {fields.map((field, index) => (
-              <input
-                key={field.id} // important to include key with field's id
-                {...register(`fields.${index}.id`)}
-              />
+              <div key={`field-key-${field.id}`}>
+                <FieldForm
+                  {...{ field, index, register, setValue, control, getValues }}
+                />
+              </div>
             ))}
           </div>
           <div>
@@ -77,7 +126,7 @@ function CreateForm({ open, setOpen }: CreateProps) {
               Ajouter un champ
             </button>
           </div>
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-end py-2">
             <button
               type="button"
               className="mr-4 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 sm:mt-0 sm:col-start-1 sm:text-sm"
@@ -86,7 +135,7 @@ function CreateForm({ open, setOpen }: CreateProps) {
               Annuler
             </button>
             <ButtonSubmit>
-              <>Créer la collection</>
+              <>Créer l'élément</>
             </ButtonSubmit>
           </div>
         </form>
@@ -99,14 +148,15 @@ function CreateForm({ open, setOpen }: CreateProps) {
 type CreateProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  collection: Collection;
 };
 
-import { Dispatch, Fragment, SetStateAction, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon, PlusIcon } from "@heroicons/react/outline";
-import { Field } from "@prisma/client";
+import { Collection, Field, Property } from "@prisma/client";
 
-export default function Create({ open, setOpen }: CreateProps) {
+export default function Create({ open, setOpen, collection }: CreateProps) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -143,8 +193,8 @@ export default function Create({ open, setOpen }: CreateProps) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-              <CreateForm {...{ open, setOpen }} />
+            <div className="relative inline-block align-bottom bg-white rounded-lg lg:px-4 lg:pt-5 lg:pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full sm:p-6">
+              <CreateForm {...{ open, setOpen, collection }} />
             </div>
           </Transition.Child>
         </div>

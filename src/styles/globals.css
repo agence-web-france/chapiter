@@ -14,6 +14,10 @@ body {
   @apply block text-base font-medium text-gray-900;
 }
 
+.input-text--label.disabled {
+  @apply text-gray-500;
+}
+
 .card {
   @apply max-w-lg;
 }

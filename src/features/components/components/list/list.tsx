@@ -14,12 +14,12 @@ type ListProps = {
 };
 
 export default function List({ collection, components }: ListProps) {
-  console.log(components);
   const [open, setOpen] = useState(false);
   const pages = [
     { name: "Contenus", href: "/admin/content" },
     { name: collection.name, href: `/admin/content/${collection.id}` },
   ];
+  const componentsIsEmpty = components.length === 0;
   return (
     <>
       <div className="lg:w-1/2">
@@ -34,8 +34,8 @@ export default function List({ collection, components }: ListProps) {
             </p>
           </div>
           <ul className="flex-1 min-h-0 overflow-y-auto">
-            {components.length === 0 && <Empty collection={collection} />}
-            {components.length > 0 &&
+            {componentsIsEmpty && <Empty collection={collection} />}
+            {!componentsIsEmpty &&
               components.map((component) => (
                 <Link
                   href={`/admin/content/${component.id}`}
@@ -56,7 +56,12 @@ export default function List({ collection, components }: ListProps) {
                   </li>
                 </Link>
               ))}
-            <li className="bg-teal-100 lg:flex p-6 border-b border-gray-200 lg:absolute lg:bottom-0 w-full hidden">
+            <li
+              className={cx(
+                "bg-teal-100 lg:flex p-6 border-b border-gray-200 lg:absolute lg:bottom-0 w-full",
+                componentsIsEmpty && "hidden"
+              )}
+            >
               <div className="ml-3 text-sm flex">
                 <button
                   type="button"
@@ -67,7 +72,7 @@ export default function List({ collection, components }: ListProps) {
                   Créer un nouvel élément
                 </button>
                 <ModalNoSSR>
-                  <Create {...{ open, setOpen }} />
+                  <Create {...{ open, setOpen, collection }} />
                 </ModalNoSSR>
               </div>
             </li>

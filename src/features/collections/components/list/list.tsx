@@ -15,7 +15,7 @@ export default function List({ collections, collectionSelected }: ListProps) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className="hidden lg:block lg:w-1/2">
+      <div className={cx("lg:block lg:w-1/2", collectionSelected && "hidden")}>
         <nav
           aria-label="Sections"
           className="flex-shrink-0 bg-white border-r border-blue-gray-200 flex flex-col max-h-screen lg:min-h-screen relative overflow-y-auto"

@@ -43,7 +43,7 @@ export default function Empty({ collection }: EmptyProps) {
           Créer un nouvel élément
         </button>
         <ModalNoSSR>
-          <Create {...{ open, setOpen }} />
+          <Create {...{ open, setOpen, collection }} />
         </ModalNoSSR>
       </div>
     </div>
