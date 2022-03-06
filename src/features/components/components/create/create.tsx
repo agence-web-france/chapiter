@@ -38,12 +38,12 @@ function CreateForm({ open, setOpen, collection }: CreateProps) {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
-    // try {
-    //   await API.post("/components", { ...data });
-    //   location.reload();
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      await API.post("/components", { ...data });
+      location.reload();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const maxModalHeight = window.innerHeight * (50 / 100);
