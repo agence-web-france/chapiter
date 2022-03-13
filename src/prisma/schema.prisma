@@ -13,7 +13,8 @@ datasource db {
 model Component {
   id          Int         @id @default(autoincrement())
   name        String
-  description String?
+  description String
+  status      String
   children    Component?  @relation("childrenOfComponent", fields: [id], references: [id])
   Component   Component[] @relation("childrenOfComponent")
   Fields      Field[]
@@ -24,6 +25,6 @@ model Field {
   name        String
   type        String
   value       String
-  Component   Component? @relation(fields: [componentId], references: [id])
-  componentId Int?
+  Component   Component @relation(fields: [componentId], references: [id])
+  componentId Int
 }

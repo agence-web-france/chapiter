@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.input-text {
+  @apply block w-full border-0 px-1 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm bg-slate-100 rounded mt-1 focus:outline-none;
+}
+
+.input-text--label {
+  @apply block text-base font-medium text-gray-900;
+}
+
+.input-text--label.disabled {
+  @apply text-gray-500;
+}
+
+.select-native--label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+.select-native {
+  @apply mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md;
+}
