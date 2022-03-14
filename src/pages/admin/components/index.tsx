@@ -7,7 +7,11 @@ type ComponentsPageProps = {
 };
 
 const ComponentsPage: NextPage<ComponentsPageProps> = ({ components }) => {
-  return <>{<ComponentsList components={components} />}</>;
+  return (
+    <>
+      <ComponentsList components={components} />
+    </>
+  );
 };
 
 export async function getStaticProps() {
@@ -17,6 +21,7 @@ export async function getStaticProps() {
     props: {
       components,
     },
+    revalidate: 10,
   };
 }
 
