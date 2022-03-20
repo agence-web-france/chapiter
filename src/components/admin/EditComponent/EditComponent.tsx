@@ -90,9 +90,9 @@ const EditComponent = ({ component }: EditComponentProps) => {
               {fields.map((field, index) => (
                 <div
                   key={`field-container-${field.id}`}
-                  className="sm:border-t sm:border-gray-200 sm:pt-5 relative"
+                  className="border-t border-gray-200 pt-5 relative"
                 >
-                  <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+                  <div className="absolute top-0 right-0 pt-4 pr-4">
                     <button
                       title="Supprimer le champ"
                       type="button"
@@ -137,7 +137,7 @@ const EditComponent = ({ component }: EditComponentProps) => {
                         id={`fields.${index}.type`}
                         autoComplete="given-name"
                         defaultValue={"text"}
-                        className="max-w-xs block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                        className="lg:max-w-xs block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                       >
                         <option value={"text"}>Texte</option>
                         <option value={"image"}>Image</option>
@@ -176,11 +176,11 @@ const EditComponent = ({ component }: EditComponentProps) => {
                                   <img
                                     id={`fields-${index}-image--img`}
                                     src={
-                                      typeof watch(`fields.0.value`) ===
+                                      typeof watch(`fields.${index}.value`) ===
                                       "object"
                                         ? URL.createObjectURL(
                                             watch(
-                                              `fields.0.value`
+                                              `fields.${index}.value`
                                             )[0] as unknown as
                                               | Blob
                                               | MediaSource
