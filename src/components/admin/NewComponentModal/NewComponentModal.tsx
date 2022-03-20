@@ -21,7 +21,6 @@ export default function NewComponentModal({
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<NewComponentModalInputs>();
   const onSubmit: SubmitHandler<NewComponentModalInputs> = (data) => {
