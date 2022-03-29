@@ -1,34 +1,36 @@
-import { PaperClipIcon, PlusIcon, XIcon } from "@heroicons/react/solid";
-import { Component, Field } from "@prisma/client";
-import { ChangeEventHandler, SyntheticEvent } from "react";
+import { PlusIcon, XIcon } from "@heroicons/react/solid";
+import { Component } from "@prisma/client";
+import { useEditComponent } from "hooks/useEditComponent";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { EditComponentInputs } from "types/EditComponentInputs";
 
 type EditComponentProps = {
   component: Component;
 };
 
-type Inputs = {
-  name: string;
-  description: string;
-  fields: Field[];
-};
-
 const EditComponent = ({ component }: EditComponentProps) => {
+
   const {
     register,
     control,
     handleSubmit,
     watch,
-    getValues,
     formState: { errors },
-  } = useForm<Inputs>();
+    setValue
+  } = useForm<EditComponentInputs>();
+
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
       name: "fields",
     }
   );
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  setValue("id", component.id);
+
+  const onSubmit: SubmitHandler<EditComponentInputs> = (data) => editComponent(data);
+
+  const { editComponent } = useEditComponent();
 
   return (
     <>
@@ -169,7 +171,7 @@ const EditComponent = ({ component }: EditComponentProps) => {
                       <div className="mt-1 sm:mt-0 sm:col-span-2">
                         <label htmlFor={`fields.${index}.value`} className="block cursor-pointer max-w-lg justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                           {typeof watch(`fields.${index}.value`) ===
-                          "object" ? (
+                            "object" ? (
                             <div className="flex justify-center">
                               <div className="relative">
                                 <div className="max-h-40 mb-4 group flex items-center w-full aspect-square rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
@@ -177,14 +179,14 @@ const EditComponent = ({ component }: EditComponentProps) => {
                                     id={`fields-${index}-image--img`}
                                     src={
                                       typeof watch(`fields.${index}.value`) ===
-                                      "object"
+                                        "object"
                                         ? URL.createObjectURL(
-                                            watch(
-                                              `fields.${index}.value`
-                                            )[0] as unknown as
-                                              | Blob
-                                              | MediaSource
-                                          )
+                                          watch(
+                                            `fields.${index}.value`
+                                          )[0] as unknown as
+                                          | Blob
+                                          | MediaSource
+                                        )
                                         : ""
                                     }
                                     alt=""
