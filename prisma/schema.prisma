@@ -9,3 +9,31 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+// Une collection est une famille de composant,
+// par exemple pour un blog il y aurait une collection Posts avec des composant Post enfant
+model Collection {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  components  Component[]
+}
+
+model Component {
+  id           Int        @id @default(autoincrement())
+  name         String
+  description  String
+  status       String
+  fields       Field[]
+  collectionId Int
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+}
+
+model Field {
+  id          Int       @id @default(autoincrement())
+  name        String
+  type        String
+  value       String
+  componentId Int
+  Component   Component @relation(fields: [componentId], references: [id])
+}
